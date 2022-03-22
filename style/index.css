@@ -1,0 +1,215 @@
+/*GERAL*/
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: rgb(255, 255, 255);
+}
+
+label{
+    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+    color: white;
+    font-weight: bold;
+}
+
+select{
+    display: block;
+    outline: none;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #323232;
+    padding: 10px;
+    font-size: .9rem;
+    margin-bottom: 40px;
+}
+
+input[type="text"], input[type="number"], input[type="date"], label{
+    display: block;
+    outline: none;
+    width: 100%;
+}
+
+input[type="text"], input[type="number"], input[type="date"]{
+    border: none;
+    border-bottom: 2px solid #323232;
+    padding: 10px;
+    font-size: .9rem;
+    margin-bottom: 40px;
+}
+
+input:focus{
+    border-color: #ffffff;
+}
+
+button{
+    background-color: #6e779e;
+    color: #FFF;
+    border: none;
+    border-radius: 20px;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+    height: 40px;
+    cursor: pointer;
+}
+  
+
+/*NAV BAR*/
+a{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+a:hover{
+    color: rgb(75, 75, 75);
+    opacity: 0.7;
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+    background: #6e779e;
+}
+
+.titleContainer{
+    margin-left: 15%;
+}
+
+.title{
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+.nav-list{
+    list-style: none;
+    display: flex;
+    margin-right: 40px;
+}
+  
+.nav-list li{
+    letter-spacing: 3px;
+    margin-left: 32px;
+}
+
+/*BANNER*/
+.banner{
+    max-width: 100%;
+    height: auto;
+}
+
+/*CONTAINER*/
+.container{
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #a0a0e2;
+    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+    border-radius: 10px;
+    padding: 50px;
+}
+
+.container h1{
+    text-align: center;
+    color: white;
+    padding-bottom: 30px;
+}
+
+.container h3{
+    text-align: center;
+    color: white;
+    padding-bottom: 30px;
+}
+
+.container p{
+    text-align: justify;
+    font-size: large;
+    color: rgb(255, 255, 255);
+}
+
+/*ABOUT*/
+.about{
+    padding-top: 50px;
+}
+
+/*IMC*/
+.imc{
+    padding-top: 50px;
+}
+
+.imcContentContainer{
+    padding-top: 50px;
+}
+
+.imcTable{
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    color: black;
+    border: black;
+}
+
+.imcTable tr:nth-child(even){
+    background-color: #e2e2ffea;
+}
+
+#imcCalcResult{
+    color:white;
+    padding-top: 50px;
+    text-align: center;
+}
+
+/*SIGNUP*/
+.signup{
+    padding-top: 50px;
+}
+
+.fullInput{
+    flex: 1 1 100%;
+    position: relative;
+}
+
+.halfInput{
+    flex: 1 1 45%;
+    position: relative;
+}
+
+.space{
+    margin-right: 10.0%;
+}
+
+/*CONTACT*/
+.contact{
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.maps {
+    width: 512px;
+    display: block;
+    margin: 0 auto;
+}
+
+/*FOOTER*/
+.footer{
+    background: #6e779e;
+    width: 100;
+    padding: 12px;
+    text-align: center;
+}
+
+.footer p{
+    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+    color: white;
+}

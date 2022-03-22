@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <link href="style/index.css" rel="stylesheet">
+        <script src="scripts/index.js"></script>
+        <title>My Health</title>
+    </head>
+    <body>
+        <!--TITLE & NAVBAR-->
+        <nav class="navbar" id="navbar">
+            <div class="titleContainer">
+                <img class="logo" src="resourcers/planta.svg" alt="My Health" width="50" height="50"/>
+                <a class="title" href="#home">MyHealth</a>
+            </div>
+            <ul class="nav-list">
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#imc">IMC</a></li>
+                <li><a href="#signup">Cadastro</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+        </nav>
+
+        <!--BANNER-->
+        <img class="banner" src="resourcers/banner1.jpeg" alt="Estilo de vida saudável" id="home"/>
+
+        <!--ABOUT-->
+        <div class="about" id="about">
+            <div class="container">
+                <h1>Sobre My Health</h1>
+                <p>Acreditamos que possuir conhecimentos sobre Sáude permite a busca pela vida saudável que terá como consequencia a prevenção de doenças e o autocuidado que é influenciada pela educação, pela família, pelo ambiente de trabalho, pela comunidade e pela comunicação social.</p>
+                <p>Nos últimos anos, com o grande números de drogas, exames e possibilidades terapêuticas, o cuidado em Saúde ficou ainda mais complexo.</p>
+                <p>Por isso nossa missão é trazer ferramentas e informações para ser de auxílio nessa jornada em busca de melhorar nossa saúde.</p>
+            </div>
+        </div>
+
+        <!--IMC-->
+        <div class="imc" id="imc">
+            <div class="container">
+                <h1>IMC</h1>
+
+                <!--INFO-->
+                <div>
+                    <h3>O que é IMC?</h3>
+                    <p>IMC é a sigla para Índice de Massa Corpórea, parâmetro adotado pela Organização Mundial de Saúde para calcular o peso ideal de cada pessoa.</p>
+                    <p>O índice é calculado da seguinte maneira: divide-se o peso do paciente pela sua altura elevada ao quadrado.</p>
+                    <p>Diz-se que o indivíduo tem peso normal quando o resultado do IMC está entre 18,5 e 24,9.</p>
+                </div>
+
+                <!--TABLE-->
+                <div class="imcContentContainer">
+                    <h3>Tabela de classificação</h3>
+                    <table class="imcTable" border="1">
+                        <tr>
+                            <th>IMC</th>
+                            <th>CLASSIFICAÇÃO</th>
+                            <th>OBESIDADE (GRAU)</th>
+                        </tr>
+                        <tr>
+                            <td>MENOR QUE 18,5</td>
+                            <td>MAGREZA</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>ENTRE 18,5 E 24,9</td>
+                            <td>NORMAL</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>ENTRE 25,0 E 29,9</td>
+                            <td>SOBREPESO</td>
+                            <td>I</td>
+                        </tr>
+                        <tr>
+                            <td>ENTRE 30,0 E 39,9</td>
+                            <td>OBESIDADE</td>
+                            <td>II</td>
+                        </tr>
+                        <tr>
+                            <td>MAIOR QUE 40,0</td>
+                            <td>OBESIDADE GRAVE</td>
+                            <td>III</td>
+                        </tr>
+                    </table>
+                </div>
+
+
+                <!--CALC-->
+                <div class="imcContentContainer">
+                    <h3>Calcule seu IMC</h3>
+                    <label for="weight">Peso</label>
+                    <input type="number" name="weight" id="weight" min="1" max="999" placeholder="Peso (kg)">
+                    <label for="height">Altura</label>
+                    <input type="number" name="height" id="height" step="0.1" min="0.1" max="20.0" placeholder="Altura (m)">
+                    <button type="button" onclick="calculateIMC()">Calcular</button>
+                    <p id="imcCalcResult"></p>
+                </div>                
+            </div>
+        </div>
+
+        <!--SIGNUP-->
+        <div class="signup" id="signup">
+            <div class="container">
+                <h1>Cadastre-se para receber notícias</h1>
+
+                <!--FORM-->
+                <div id="signupContent">
+                    <form>
+                        <!--PERSONAL INFORMATION-->
+                        <div>
+                            <h3>Informações Pessoais</h3>
+                            <input type="text" name="name" id="name" placeholder="Nome Completo" required>
+                        </div>
+    
+                        <div>
+                            <input type="text" name="cpf" id="cpf" placeholder="CPF (Apenas números)" onkeypress="validateNumber(event)">
+                        </div>
+    
+                        <div>
+                            <label for="birthdate">Data de Nascimento</label>
+                            <input type="date" name="birthdate" id="birthdate">
+                        </div>
+                        
+                        <div>
+                            <label>Sexo</label>
+                            <select name="Sexo" id="sex">
+                                <option value="male">Masculino</option>
+                                <option value="female">Feminino</option>
+                            </select>
+                        </div>
+    
+                        <!--ADDRESS-->
+                        <div>
+                            <h3>Endereço</h3>
+                            <input type="text" name="street" id="street" placeholder="Logradouro">
+                            <input type="text" name="streetNumber" id="streetNumber" placeholder="Número" onkeypress="validateNumber(event)"> 
+                        </div>
+    
+                        <div>
+                            <input type="text" name="cep" id="cep" placeholder="CEP" onkeypress="validateNumber(event)"> 
+                        </div>
+    
+                        <div>
+                            <input type="text" name="city" id="city" placeholder="Cidade"> 
+                            <input type="text" name="uf" id="uf" placeholder="UF"> 
+                        </div>
+    
+                        <!--SUBMIT-->
+                        <div>
+                            <button type="button" onclick="submitButton()">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>    
+        </div>
+
+        <!--CONTACT-->
+        <div class="contact" id="contact">
+            <div class="container">
+                <h1>Contato</h1>
+                <h3>Telefone: (11) 4444-6666</h3>
+                <h3>Email: contato@myhealth.com</h3>
+                <!--ADDRESS IFRAME-->
+                <div class="maps">
+                    <iframe width="500" height="500" src="https://maps.google.com/maps?width=600&amp;height=500&amp;hl=en&amp;q=Estrada%20Itapecerica%205859%20+(My%20Businesasds%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!--FOOTER-->
+        <div class="footer">
+            <p>© Copyright 2000-2022 MyHealth. Todos os direitos reservados. Vinícius Reis</p>
+        </div>  
+    </body>
+</html>
