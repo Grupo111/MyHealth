@@ -25,7 +25,7 @@ select{
     margin-bottom: 40px;
 }
 
-input[type="text"], input[type="number"], input[type="date"], label{
+input[type="text"], input[type="number"], input[type="date"]{
     display: block;
     outline: none;
     width: 100%;
@@ -36,7 +36,6 @@ input[type="text"], input[type="number"], input[type="date"]{
     border-bottom: 2px solid #323232;
     padding: 10px;
     font-size: .9rem;
-    margin-bottom: 40px;
 }
 
 input:focus{
@@ -45,6 +44,18 @@ input:focus{
 
 button{
     background-color: #6e779e;
+    color: #FFF;
+    border: none;
+    border-radius: 20px;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+    height: 40px;
+    cursor: pointer;
+}
+
+button:disabled{
+    background-color: #939397;
     color: #FFF;
     border: none;
     border-radius: 20px;
@@ -150,6 +161,10 @@ nav{
     padding-top: 50px;
 }
 
+.imcInputContainer{
+    margin-bottom: 40px;
+}
+
 .imcTable{
     margin-left: auto;
     margin-right: auto;
@@ -175,6 +190,10 @@ nav{
     padding-top: 50px;
 }
 
+.signupInputContainer{
+    margin-bottom: 40px;
+}
+
 .fullInput{
     flex: 1 1 100%;
     position: relative;
@@ -187,6 +206,23 @@ nav{
 
 .space{
     margin-right: 10.0%;
+}
+
+.inputError{
+    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+    text-align: center;
+    color: red;
+}
+
+#formSubmitError{
+    color:white;
+    padding-top: 50px;
+    text-align: center;
+}
+
+#checkboxContainer{
+    text-align: center;
+    padding-bottom: 20px;
 }
 
 /*CONTACT*/
