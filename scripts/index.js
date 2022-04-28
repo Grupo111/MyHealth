@@ -1,5 +1,5 @@
 // API
-const API = "http://app.professordaniloalves.com.br/api/v1";
+const API = "https://app.professordaniloalves.com.br/api/v1";
 
 /*
 *
