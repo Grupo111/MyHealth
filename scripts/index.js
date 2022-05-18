@@ -32,65 +32,6 @@ function validateNumber(evt) {
     return true;
 }
 
-function validateCpf() {
-    var cpf = document.getElementById("cpf").value;
-
-    var digit1 = cpf.substring(9, 10);
-    var digit2 = cpf.substring(10, 11);
-    var currentCpf = cpf.substring(0, 9);
-
-    var sum1 = 0;
-    var j = 0;
-    for(var i = 1; i < 10; i++) {
-        var digit = currentCpf.substring(j, i);
-        sum1 += digit * i;
-
-        j++;
-    }
-    var rest1 = sum1 % 11;
-    if(rest1 == 10) rest1 = 0;
-    currentCpf += rest1;
-
-    var sum2 = 0;
-    j = 1;
-    for(var i = 0; i < 10; i++){
-        var digit = currentCpf.substring(i, j);
-        sum2 += digit * i;
-
-        j++;
-    }
-    var rest2 = sum2 % 11;
-    if(rest2 == 10) rest2 = 0;
-
-    if(digit1 == rest1 && digit2 == rest2)
-    {
-        document.getElementById("cpf").style.setProperty("border", "none");
-        document.getElementById("cpf").style.setProperty("border-bottom", "2px solid #323232");
-        return true;
-    }
-    else 
-    {
-        alert("CPF Inválido!");
-        document.getElementById("cpf").style.setProperty("border", "1px solid red");
-        document.getElementById("cpf").focus();
-    }
-}
-
-function isEmpty(id){
-    if(document.getElementById(id).value === "")
-    {
-        document.getElementById(id).style.setProperty("border", "1px solid red");
-        return true;
-    }
-    else 
-    {
-        document.getElementById(id).style.setProperty("border", "none");
-        document.getElementById(id).style.setProperty("border-bottom", "2px solid #323232");
-
-        return false;
-    }
-}
-
 function createInputErrorText(containerID, message){
     var textNode = document.createElement("p");
     textNode.innerHTML = message;
@@ -128,36 +69,6 @@ function resetIMCInputs(){
     document.getElementById("imcCalcResult").innerHTML = "";
 }
 
-function calculateIMC(){
-    var weight = document.getElementById("weight").value;
-    var height = document.getElementById("height").value;
-
-    var result = weight / Math.pow(height, 2);
-    result = result.toFixed(1);
-
-    var resultText = document.getElementById("imcCalcResult"); 
-    if(result < 18.5) {  
-        resultText.innerHTML = result + " - Magreza (0)";
-        resultText.style.setProperty("color", "red", "important");
-    }
-    else if(result >= 18.5 && result <= 24.9){
-        resultText.innerHTML = result + " - Normal (0)";
-        resultText.style.setProperty("color", "green", "important");
-    }
-    else if(result >= 25 && result <= 29.9){
-        resultText.innerHTML = result + " - Sobrepeso (I)";
-        resultText.style.setProperty("color", "red", "important");
-    }
-    else if(result >= 30 && result <= 39.9){
-        resultText.innerHTML = result + " - Obesidade (II)";
-        resultText.style.setProperty("color", "red", "important");
-    }
-    else if(result >= 40){
-        resultText.innerHTML = result + " - Obesidade Grave (III)";
-        resultText.style.setProperty("color", "red", "important");
-    } 
-}
-
 function calculateIMCWithAPI(){
     resetIMCInputs();
 
@@ -181,8 +92,6 @@ function calculateIMCWithAPI(){
             });
         });
     }).then(response => {
-        //console.log(response);
-
         if(response && response.json.errors) {
             var error = "";
             Object.entries(response.json.errors).forEach((obj, index) => {
@@ -204,7 +113,9 @@ function calculateIMCWithAPI(){
 *
 */
 
-getUF();
+var currentForm;
+
+getUFAPI();
 
 function resetSignupInputs(){
     var elementsList = document.getElementsByClassName("signupInputContainer");
@@ -234,7 +145,7 @@ function createOption(value, text){
     return node;
 }
 
-function getUF(){
+function getUFAPI(){
     fetch(API + "/endereco/estados", {
         headers: new Headers({
             Accept: "application/json"
@@ -254,6 +165,7 @@ function getUF(){
 
 function fillAdressWithCEP(){
     const cep  = document.getElementById("cep").value;
+
     fetch(API + "/endereco/" + cep, {
         method: "GET",
         headers: new Headers({
@@ -275,45 +187,44 @@ function fillAdressWithCEP(){
     })
 }
 
-function submitButton(){
-    var shouldAlert = false;
+function fillFormWithCPF(){
+    document.getElementById("modal").style.display = "none";
 
-    if(isEmpty("name"))
-        shouldAlert = true;
+    document.getElementById("name").value = currentForm.nomeCompleto;
+    document.getElementById("email").value = currentForm.email;
+    document.getElementById("cpf").value = currentForm.cpf;
+    document.getElementById("birthdate").value = currentForm.dataNascimento;
+    document.getElementById("sex").value = currentForm.sexo;
+    document.getElementById("cep").value = currentForm.cep;
+    document.getElementById("street").value = currentForm.logradouro;
+    document.getElementById("streetNumber").value = currentForm.numeroLogradouro;
+    document.getElementById("city").value = currentForm.cidade;
+    document.getElementById("uf").value = currentForm.uf;
+}
 
-    if(isEmpty("cpf"))
-        shouldAlert = true;
+function checkCpfExistsAPI(){
+    currentForm = "";
 
-    if(isEmpty("birthdate"))
-        shouldAlert = true;
+    const cpf  = document.getElementById("cpf").value;
 
-    if(isEmpty("street"))
-        shouldAlert = true;
-
-    if(isEmpty("streetNumber"))
-        shouldAlert = true;
-    
-    if(isEmpty("cep"))
-        shouldAlert = true;
-
-    if(isEmpty("city"))
-        shouldAlert = true;
-
-    if(isEmpty("uf"))
-        shouldAlert = true;
-
-    if(shouldAlert)
-        alert("Preencha todos os dados!");
-    else
-    {
-        var cpfOkay = validateCpf();
-
-        if(cpfOkay)
+    fetch(API + "/cadastro/" + cpf, {
+        method: "GET",
+        headers: new Headers({
+            Accept: "application/json"
+        })
+    }).then(response => {
+        return new Promise((myResolve, myReject) => {
+            response.json().then(json => {
+                myResolve({"status": response.status, json});
+            });
+        });
+    }).then(response => {
+        if(response.status == 200)
         {
-            var content = document.getElementById("signupContent");
-            content.innerHTML = '<p style="text-align:center">Cadastrado com sucesso!</p>';
+            currentForm = response.json;
+            document.getElementById("modal").style.display = "block";
         }
-    }
+    })
 }
 
 function submitAPIButton(){
@@ -330,13 +241,25 @@ function submitAPIButton(){
     var city = document.getElementById("city").value;
     var uf = document.getElementById("uf").value;
 
-    fetch(API + "/cadastro", {
-        method: "POST",
-        headers: new Headers({
-            Accept: "application/json",
-            'Content-Type': "application/json",
-        }),
-        body: JSON.stringify({
+    let method = "POST";
+    let body = JSON.stringify({
+        nomeCompleto: name,
+        dataNascimento: birthdate,
+        sexo: sex,
+        cep: cep,  
+        cpf: cpf,
+        uf: uf,
+        cidade: city,
+        logradouro: street,
+        numeroLogradouro: streetNumber,
+        email: email
+    });
+
+    if(currentForm.id)
+    {
+        method = "PUT";
+        body = JSON.stringify({
+            id: currentForm.id,
             nomeCompleto: name,
             dataNascimento: birthdate,
             sexo: sex,
@@ -347,7 +270,16 @@ function submitAPIButton(){
             logradouro: street,
             numeroLogradouro: streetNumber,
             email: email
-        })
+        });
+    }
+
+    fetch(API + "/cadastro", {
+        method: method,
+        headers: new Headers({
+            Accept: "application/json",
+            'Content-Type': "application/json",
+        }),
+        body: body
     }).then(response => {
         return new Promise((myResolve, myReject) => {
             response.json().then(json => {
@@ -355,10 +287,9 @@ function submitAPIButton(){
             });
         });
     }).then(response => {
-        //console.log(response);
-
-        if(response.status == 201)
+        if(response.status == 201 || response.status == 200)
         {
+            currentForm = "";
             var content = document.getElementById("signupContent");
             content.innerHTML = '<p style="text-align:center">' + response.json.message + '</p>';
 
@@ -371,6 +302,32 @@ function submitAPIButton(){
 
         } else {
             createInputErrorText("cpfContainer", response.json.message);
+        }
+    })
+}
+
+function deleteFromAPI(){
+    const cpf = currentForm.cpf;
+
+    fetch(API + "/cadastro/" + cpf, {
+        method: "DELETE",
+        headers: new Headers({
+            Accept: "application/json"
+        })
+    }).then(response => {
+        return new Promise((myResolve, myReject) => {
+            myResolve({"status": response.status});
+        });
+    }).then(response => {
+        if(response.status == 204){
+            currentForm = "";
+            document.getElementById("modal").style.display = "none";
+            alert("Deletado com sucesso!");
+        }
+        else {
+            currentForm = "";
+            document.getElementById("modal").style.display = "none";
+            alert("Falha ao deletar!");
         }
     })
 }
