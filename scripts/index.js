@@ -113,7 +113,7 @@ function calculateIMCWithAPI(){
 *
 */
 
-var currentForm;
+var currentForm = "";
 
 getUFAPI();
 
@@ -255,7 +255,7 @@ function submitAPIButton(){
         email: email
     });
 
-    if(currentForm.id)
+    if(currentForm != "")
     {
         method = "PUT";
         body = JSON.stringify({
